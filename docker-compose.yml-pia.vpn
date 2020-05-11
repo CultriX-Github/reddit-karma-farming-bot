@@ -1,0 +1,63 @@
+version: "2.4"
+services:
+  pia:
+    build: https://github.com/qdm12/private-internet-access-docker.git
+    image: qmcgaw/private-internet-access
+    container_name: pia
+    volumes:
+      - "./config:/config"
+    cap_add:
+      - NET_ADMIN
+    network_mode: bridge
+    init: true
+    ports:
+      - "${HTTP_WEB_PROXY_PORT}:8888/tcp"
+      - "${SOCKS5_PROXY_PORT}:8388:8388/tcp"
+      - "${SOCKS5_PROXY_PORT}:8388:8388/udp"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+      - USER=${PIA_USER}
+      - PASSWORD=${PIA_PASS}
+      - ENCRYPTION=${ENCRYPTION}
+      - PROTOCOL=${PROTOCOL}
+      - REGION=${REGION}
+      - PORT_FORWARDING=${PORT_FORWARDING}
+      - PORT_FORWARDING_STATUS_FILE=/forwarded_port
+      - DOT=on
+      - DOT_PROVIDERS=${DOT_PROVIDERS}
+      - BLOCK_MALICIOUS=on
+      - BLOCK_SURVEILLANCE=off
+      - BLOCK_ADS=off
+      - UNBLOCK=
+      - EXTRA_SUBNETS=${SUBNETS}
+      - TINYPROXY=off
+      - TINYPROXY_LOG=Info
+      - TINYPROXY_USER=
+      - TINYPROXY_PASSWORD=
+      - SHADOWSOCKS=off
+      - SHADOWSOCKS_LOG=on
+      - SHADOWSOCKS_PORT=8388
+      - SHADOWSOCKS_PASSWORD=
+    restart: always
+      
+  karmabot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: karmabot
+    network_mode: "service:pia"
+#    image: 
+    environment:
+      - REDDIT_CLIENT_ID=${REDDIT_CLIENT_ID}
+      - REDDIT_SECRET=${REDDIT_SECRET}
+      - REDDIT_USERNAME=${REDDIT_USERNAME}
+      - REDDIT_PASSWORD=${REDDIT_PASSWORD}
+      - REDDIT_USER_AGENT=${REDDIT_USER_AGENT}
+    volumes:
+      - "./src:/reddit-karma-bot-run"
+    restart: unless-stopped
+    depends_on:
+      - pia
+

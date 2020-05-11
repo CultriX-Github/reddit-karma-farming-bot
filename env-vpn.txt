@@ -1,0 +1,25 @@
+# When using with docker-compose, rename this file to .env after filling in the variables!
+REDDIT_CLIENT_ID=
+REDDIT_SECRET=
+REDDIT_USERNAME=
+REDDIT_PASSWORD=
+REDDIT_USER_AGENT=
+
+# ======== user ========
+PUID=
+PGID=
+TIMEZONE="/"
+
+# ======== PIAVPN ========
+HTTP_WEB_PROXY_PORT=8888
+SOCKS5_PROXY_PORT=8388
+PROTOCOL=udp
+ENCRYPTION=normal
+PIA_USER=
+PIA_PASS=
+DOT_PROVIDERS=cloudflare
+REGION=DE Berlin
+#REGION=DE Frankfurt
+PORT_FORWARDING=off
+SUBNETS=
+

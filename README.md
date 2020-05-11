@@ -92,3 +92,23 @@ You can provide also a proxy server for the docker container to connect through
 ```bash
 --e HTTPS_PROXY="https://127.0.0.1:3001"
 ```
+
+
+
+
+
+########### -CultriX- #############
+
+# Fixed some dependency issues and made a docker-compose.yml configuration
+
+# Set variables in either env.txt or env-vpn.txt and rename file to .env
+
+# docker-compose.yml builds image from Dockerfile and runs it
+
+# docker-compose.yml-pia.vpn includes a PIA VPN client for the bot image. 
+
+	# When using PIA VPN configuration, you need to set extra variables in the .env file
+
+
+
+
